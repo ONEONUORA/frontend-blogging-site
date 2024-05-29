@@ -25,5 +25,8 @@ dist-ssr
 
 node_modules /*
 .env
+aws.jsx
+firebase.jsx
+regex.txt
 
 
