@@ -12,6 +12,7 @@ const InPageNavigation = ({  routes, defaultHidden = [] , defaultActiveIndex = 0
     let [isResizeEventAdded, setIsResizeEventAdded] = useState(false)
 
     let [width, setWidth] = useState(window.innerWidth)
+
     const changePageState = (btn, i) =>{
     
         let {offsetWidth, offsetLeft } = btn;
@@ -40,7 +41,7 @@ const InPageNavigation = ({  routes, defaultHidden = [] , defaultActiveIndex = 0
 
     return(
       <>
-        <div className="navigatepage" >
+        <div className="relative mb-8 bg-white border-b border-grey flex flex-nowrap overflow-x-auto" >
 
             {
                 routes.map((route, i) => {
@@ -50,7 +51,7 @@ const InPageNavigation = ({  routes, defaultHidden = [] , defaultActiveIndex = 0
 
                         <button key={i}
                           ref={i == defaultActiveIndex ? activeTabRef : null}
-                          className={"trend " + ( inPageNavIndex == i ? "text-black" : "text-dark" ) + (defaultHidden.includes(route) ? " d-md-none " : " ")}
+                          className={"p-4 px-5 capitalize " + ( inPageNavIndex == i ? "text-black" : "text-dark-grey " ) + (defaultHidden.includes(route) ? " md:hidden " : " ")}
                           onClick={(e) => {changePageState(e.target, i)}}
                           >
                
@@ -62,10 +63,9 @@ const InPageNavigation = ({  routes, defaultHidden = [] , defaultActiveIndex = 0
                     )
                 })
             }
-            <div className="route1"
-              ref={activeTabLineRef}
-           ></div>
-           
+            <hr className="absolute bottom-0 duration-300"
+              ref={activeTabLineRef}/>
+       
         </div>
        
 

@@ -42,13 +42,13 @@ const SearchPage = () =>{
 
         const fetchUsers = () =>{
             axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-users" , { query })
-            .then(( {data: {users} } ) =>{
+            .then(( {data: { users} } ) =>{
                 setUsers(users);
             })
-            .catch((err) => {
-                console.log(err);
+            // .catch((err) => {
+            //     console.log(err);
                
-            });
+            // });
         }
 
 
@@ -89,8 +89,8 @@ const SearchPage = () =>{
 
     return(
       <>
-                <section className="h-cover section1">
-                    <div className="w-100" >
+                <section className="h-cover flex justify-center gap-10">
+                    <div className="w-full" >
                         <InPageNavigation routes={[`Search Results from "${query}"`, "Accounts Matched"]} defaultHidden={["Accounts Matched"]} >
            
                         <>
@@ -115,8 +115,8 @@ const SearchPage = () =>{
                         </InPageNavigation>
                     </div>
 
-                    <div className="searchuser">
-                                    <h6>User related to search <i className="bi bi-person"></i></h6>
+                    <div className="min-w-[40%] lg:min-w-[350px] max-w-min border-l border-grey pl-8 pt-3 max-md:hidden">
+                                    <h1 className="font-medium text-xl mb-8 ">User related to search <i className="bi bi-person mt-1"></i></h1>
                                     <UserCardWrapper/>
                     </div>
                 </section>

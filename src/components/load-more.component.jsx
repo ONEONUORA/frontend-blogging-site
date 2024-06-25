@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 
 
@@ -7,8 +8,8 @@ const LoadMoreDataBtn = ({ state, fetchDataFun, additionalParam }) =>{
         return (
          
             <button
-                onClick={() => fetchDataFun({  ...additionalParam,   page: state.page  + 1 } )}
-                className="loadmore"
+                onClick={() => fetchDataFun({  ...additionalParam,   page: state.page + 1 } )}
+                className="text-dark-grey p-2 hover:bg-grey/30 rounded-md flex items-center gap-2"
             >
                 Load More
             </button>

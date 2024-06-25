@@ -66,6 +66,10 @@ const ProfilePage = ()=>{
         })
     }
 
+    // useEffect(() =>{
+    //     fetchUserProfile()
+    // }[])
+
     const getBlogs=({page = 1, user_id})=>{
 
         user_id = user_id == undefined  ? blogs.user_id : user_id;
@@ -89,17 +93,7 @@ const ProfilePage = ()=>{
         })
     }
 
-    useEffect(() =>{
-        if(profileId != profileLoaded) {
-            setBlogs(null)
-        }
 
-        if(blogs == null){
-            resetStates();
-            fetchUserProfile();
-        }
-        
-    }, [profileId, blogs])
 
     const resetStates =()=>{
         setProfile(profileDataStructure);

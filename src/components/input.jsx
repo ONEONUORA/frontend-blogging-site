@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react"
 
 const InputBox =({name, type, id , value, placeholder, icon, disable = false})=>{
@@ -16,11 +17,11 @@ const InputBox =({name, type, id , value, placeholder, icon, disable = false})=>
                         disabled={disable}
                         className="input-box"
                     />
-                      <i className={"bi " +  icon + " input-icon" }  style={{ position: 'absolute', padding:'5px', marginTop:'2px' }}></i>
+                      <i className={"bi " +  icon + " input-icon" } ></i>
                     {
                         type == "password" ?
-                           <i className ={"bi bi-eye" + (!passwordVisible ? "-slash " : "") + "  pass cursor-pointer"} style={{position:'absolute', marginTop:'7px'}}
-                            onClick={() => setPasswordVisible(currentVal=> !currentVal
+                           <i className ={"bi bi-eye" + (!passwordVisible ? "-slash " : "") + " input-icon left-[auto]  right-4 cursor-pointer"} 
+                            onClick={() => setPasswordVisible(currentVal => !currentVal
                             )}
                            ></i>
                         :""

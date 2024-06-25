@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import AnimationWrapper from "../common/page-Animation";
-import candle from '../assets/candle.png'
+import candle from "../assets/candle.png";
 import InputBox from "../components/input";
 import { Link, Navigate } from "react-router-dom";
-import { useContext} from "react";
+import { useContext } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { storeInSession } from "../common/session";
@@ -10,26 +11,26 @@ import { UserContext } from "../App";
 import { authWithGoogle } from "../common/firebase";
 
 const UserAuthForm = ({ type }) => {
-
   // const authForm = useRef();
 
-  let { userAuth: {access_token} , setUserAuth} = useContext(UserContext)
+  let {
+    userAuth: { access_token },
+    setUserAuth,
+  } = useContext(UserContext);
 
-    console.log(access_token)
+  console.log(access_token);
 
   const userAuthThroughServer = (serverRoute, formData) => {
-   
-
-       axios .post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
+    axios
+      .post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
       .then(({ data }) => {
-        storeInSession("user", JSON.stringify(data))
-        setUserAuth(data)
+        storeInSession("user", JSON.stringify(data));
+        setUserAuth(data);
       })
       .catch(({ response }) => {
         toast.error(response.data.error);
       });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,13 +53,11 @@ const UserAuthForm = ({ type }) => {
 
     //form validation/////**************************************************** */
 
-    if(fullname){
-
-        if(fullname.length < 3){
-            return  toast.error("Fullname must be at least 3 letters long")
-        }
+    if (fullname) {
+      if (fullname.length < 3) {
+        return toast.error("Fullname must be at least 3 letters long");
       }
-
+    }
 
     if (!email.length) {
       return toast.error("Enter Email");
@@ -74,46 +73,45 @@ const UserAuthForm = ({ type }) => {
       );
     }
     userAuthThroughServer(serverRoute, formData);
-  }
+  };
 
-  const handleGoogleAuth =  (e) =>{
-
+  const handleGoogleAuth = (e) => {
     e.preventDefault();
 
-   authWithGoogle().then(user=>{
+    authWithGoogle()
+      .then((user) => {
         let serverRoute = "/google-auth";
 
         let formData = {
-            access_token:user.accessToken
-        }
+          access_token: user.accessToken,
+        };
 
-        userAuthThroughServer(serverRoute, formData)
-    
+        userAuthThroughServer(serverRoute, formData);
+      })
 
-   })
+      .catch((err) => {
+        toast.error("Trouble trying to login through google");
+        return console.log(err);
+      });
+  };
 
-   .catch(err => {
-        toast.error('Trouble login through  Google');
-        return console.log(err)
-   })
- 
-  }
-
-  return (
-    access_token ?
-        <Navigate to='/'/>
-    :
+  return access_token ? (
+    <Navigate to="/" />
+  ) : (
     <AnimationWrapper keyValue={type}>
-      <section
-        className="mt-3 d-flex align-items-center justify-content-center"
-        style={{}}
-      >
-        <Toaster />
-        <form id="formElement" className="forminput">
-          <img src={candle} alt="image" style={{width:'80px', display:'block', margin:'0 auto'}}/>
-          <h3 className="text-4xl text-center mb-4 mt-3">
+            <section
+                 className="h-cover flex items-center justify-center"
+            >
+               <Toaster />
+               <form id="formElement" className="w-[80%] max-w-[400px]">
+          <img
+            src={candle}
+            alt="image"
+            style={{ width: "80px", display: "block", margin: "0 auto" }}
+          />
+          <h1 className="text-4xl font-gelasio capitalize text-center mb-10 mt-3" >
             {type == "sign-in" ? "Hello Again!" : "Join The Adventure"}
-          </h3>
+          </h1>
 
           {type !== "sign-in" ? (
             <InputBox
@@ -122,9 +120,9 @@ const UserAuthForm = ({ type }) => {
               placeholder="Full Name"
               icon="bi-person"
             />
-          ) :
-
-           (" ")}
+          ) : (
+            " "
+          )}
 
           <InputBox
             name="email"
@@ -141,61 +139,46 @@ const UserAuthForm = ({ type }) => {
           />
 
           <button
-            className="btn btn-dark1"
+            className="btn-dark mt-14 center"
             type="submit"
             onClick={handleSubmit}
           >
-            { type.replace("-", " ")}
+            {type.replace("-", " ")}
           </button>
 
-          <div className="position-relative w-100 d-flex gap-2 my-10 text-uppercase text-black font-weight-bold">
-            <hr className="line2" />
-            <p className="mt-3">OR</p>
-            <hr className="line2" />
+          <div className="relative w-full items-center gap-2 my-10 opacity-10 flex uppercase text-black font-bold" >
+            <hr className="w-1/2 border-black"  />
+            <p className="">or</p>
+            <hr className="w-1/2 border-black"  />
           </div>
 
-          <button className="btn btn-dark2"
-          onClick={handleGoogleAuth}
-          >
+          <button className="btn-dark  flex items-center justify-center gap-4 w-[90%] center" onClick={handleGoogleAuth}>
             <i
               className="bi bi-google"
-              style={{ color: "red", paddingRight: "5px" }}
+              style={{ color: "red"}}
             ></i>
             Continue With Google
           </button>
 
           {type == "sign-in" ? (
-            <p
-              className="in"
-              style={{
-              
-                textAlign: "center",
-                paddingTop: "10px",
-              }}
-            >
+            <p className=" mt-6 text-dark-grey text-xl text-center" >
               Dont have an account ?
-              <Link to="/signup" style={{ textDecoration: "none" }}>
+              <Link to="/signup"  className="underline text-black text-xl ml-1">
                 Register Today
               </Link>
             </p>
           ) : (
-            <p
-              className="out"
-              style={{
-                display: "flex",
-                gap: "10px",
-                textAlign: "center",
-                paddingTop: "10px",
-              }}
+
+            <p className="mt-6 text-dark-grey text-xl text-center"
             >
               Already a member ?
-              <Link to="/signin" style={{ textDecoration: "none" }}>
+              <Link to="/signin" className="underline text-black text-xl ml-1">
                 Sign in here
               </Link>
             </p>
           )}
-        </form>
-      </section>
+               </form>
+            </section>
     </AnimationWrapper>
   );
 };

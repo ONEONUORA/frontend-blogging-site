@@ -9,41 +9,46 @@ import { removeFromSession } from "../common/session";
 const UserNavigationPanel = () =>{
 
             const {userAuth: {username}, setUserAuth} = useContext(UserContext);
+           
             const signOutUser =()=>{
                 removeFromSession("user");
                 setUserAuth({access_token: null})
-
             }
+            
     return(
         <>
             <AnimationWrapper
-                className='userface'
+                className='absolute right-0 z-50'
                 transition={{duration: 0.2}}
          
             >
             
-             
+            <div className="bg-white absolute right-0 border border-grey w-60  duration-200">
 
-            <div className="signOutBtn" style={{ backgroundColor: 'white', width: '5rem',height:'rem', transition: 'all 0.3s'}}>
+                                        <Link to='/editor' className=" flex gap-2 link md:hidden pl-8 py-4">
+                                              <i className="bi bi-pencil-square " ></i>
+                                              <p>Write</p>
+                                        </Link>
 
-
-                                       <Link to={`/user/${username}`} className="link pl-2 py-2">
+                                       <Link to={`/user/${username}`} className="link pl-8 py-4">
                                            Profile
                                          </Link>
 
-                                       <Link to='/dashboard/blogs' className="link pl-2 py-2" >
+                                       <Link to='/dashboard/blogs' className="link pl-8 py-4" >
                                            Dashboard
                                        </Link>
 
                 
-                                       <Link to='/settings/edit-profile' className="link pl-2 py-2">
+                                       <Link to='/settings/edit-profile' className="link pl-8 py-4" >
                                            Settings
                                        </Link>
 
-                                       <button className="button1"
+                                        <span className="absolute border-t border-grey  w-[100%]  "></span>
+
+                                       <button className="text-left p-4 hover:bg-grey w-full pl-8 py-4" 
                                                onClick={signOutUser}>
-                                           <h6 style={{fontWeight:'bold'}}>Sign Out</h6>
-                                           <p  className="text-dark-grey"><span>@</span>{username}</p>
+                                           <h1 className="font-bold text-xl mg-1">Sign Out</h1>
+                                           <p className="text-dark-grey"><strong>@</strong>{username}</p>
                                        </button>
 
             </div>

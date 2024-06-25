@@ -42,10 +42,8 @@ const Navbar=()=>{
           setUserNavPanel(currentVal => !currentVal);
     }
 
-    const handleSearchFunction = (e)=> {
-
+    const handleSearch = (e)=> {
       let query = e.target.value
-
       if(e.keyCode == 13 && query.length){
         navigate(`/search/${query}`)
       }
@@ -58,96 +56,78 @@ const Navbar=()=>{
 
     }
 
+
+
     return(
      <>
-          
-          <nav className="navbar navbar-expand-lg ">
-                    <div className="container">
-                      <Link to='/' className="navbar-brand" href="#">
-                            <img src={logo} alt="Brand Logo" style={{width:'60px', height:"70px", borderRadius:"50%", marginBottom:'5px'}}/>
+
+        <nav className='navbar'>
+              <Link to='/' className='flex-none w-10'>
+                     <img src={logo} alt="Brand Logo" className='w-full'/>
+              </Link>
+
+
+              <div className={'absolute bg-white w-full left-0 top-full mt-0.5  border-b border-grey py-4 px-[5vw] md:border-0 md:block md:relative md:inset-0 md:p-0 md:w-auto md:show ' +  ( searchBoxVisibility ? "show" : "hide")}>
+                <input 
+                    type='text'
+                    onKeyDown={handleSearch}
+                    placeholder='Search'
+                    className='w-full md:w-auto bg-grey p-4 pl-6 pr-[12%] md:pr-6 rounded-full placeholder:text-dark-grey md:pl-12'
+                    />
+               <i className="bi bi-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey" ></i>
+              </div>
+
+              <div className='flex items-center gap-3 md:gap-6 ml-auto'>
+                <button className='md:hidden  bg-grey w-12 h-12 rounded-full flex items-center justify-center'
+                onClick={() => setSearchBoxVisibility(currentVal => !currentVal)}
+                >
+                    <i className="bi bi-search text-xl" ></i>
+                </button>
+
+                <Link to="/editor" className='hidden md:flex gap-2 link'>
+                    <i className="bi bi-pencil-square " ></i>
+                    <p> Write</p>
+                </Link>
+
+                {
+                  access_token ?
+                    <>
+                      <Link to="/dashboard/notification">
+                        <button className='w-12 h-12 rounded-full bg-grey relative hover:bg-black/10'>
+                            <i className="bi bi-bell text-2xl block mt-1" ></i>
+                        </button>
                       </Link>
 
-                      {new_notification_available}
-                      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                      </button>
-                      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                          <li className="nav-item">
-                             <form className={`d-flex flex-grow-1  ${searchBoxVisibility ? "show" : "hide"} `}>
-                                  <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" style={{backgroundColor:'rgb(220, 217, 217)'}}
-                                     onKeyDown={handleSearchFunction}
+                      <div className='relative' onClick={handleUserNavPanel} onBlur={handleBlur}>
+                          <button className='w-12 h-12 mt-1'>
+                            <img src={profile_img} className='w-full h-full object-cover rounded-full'/>
+                          </button>
 
-                                  />
-                             </form>
-                          </li>
-       
-                        </ul>
+                          {
+                            userNavPanel ? <UserNavigationPanel/> : ""
+                          }
+                        
+                      </div>
+                    </>
+                     :
+                    <>
+                    
+                         <Link className='btn-dark py-2' to="/signin">
+                            Sign In
+                         </Link>
+
+                        <Link className='btn-light py-2 hidden md:block' to="/    signup">
+                             Sign up
+                          </Link>
+                  </>
+
+                }
+
+              </div>
              
-                        <div className="d-flex gap-2 write" role="search">
-
-                              <div style={{padding:'10px'}}
-                                    onClick={() => setSearchBoxVisibility(currentVal => !currentVal)}
-                                    >
-                                      <i className="bi bi-search" style={{cursor:'pointer'}}></i>
-                             </div>
-                           
-                             <Link to='/editor' style={{display:'flex', gap:'1px', textDecoration:'none', color:'gray'}}>
-                               <i className="bi bi-pencil-square  py-1 px-1" style={{fontSize:'1.1rem', marginTop:'2px'}}></i>
-                               <h6 className='' style={{marginTop:'10px'}}>Write</h6>
-                             </Link>
-
-                            {
-                              access_token ?
-
-                              <>
-                                <Link to='/dashboard/notificationS'>
-                                  <button className='btn face' style={{marginTop:"4px"}}>
-                                      <i className="bi bi-bell" style={{fontSize:'1.1rem'}}></i>
-
-                                      {
-                                        new_notification_available ?
-                                        <span className='bg-red w-3 h-3 rounded-full absolute z-10 top-2 right-2'></span>
-                                        : 
-                                        " "
-                                      }
-                             
-                                      
-                                  </button>
-                                </Link>
-
-                               <div className='relative' onClick={handleUserNavPanel} onBlur={handleBlur} style={{display:"block", textAlign:'start'}}>
-                                      <button className='btn face1' style={{width: '3rem', height: '2.5rem'}}>
-                                           <img src={profile_img}
-                                            className='img-fluid rounded-circle'
-                                            />
-                                      </button>
-
-                                  {
-                                    userNavPanel ? <UserNavigationPanel/>
-
-                                    : ""
-                                  }
-
-                              </div>
-                              </>
-
-                              :
-
-                              <>
-                                  <Link to='/signin'><button className="btn btn-dark me-2" type="submit">Sign In</button></Link>  
-                                  <Link to='/signup'><button className="btn btn-outline-dark me-2" type="submit">Sign Up</button></Link>
-                              </>
-                            }
-
-                        </div>
-
-                       
-                 </div>
-            </div>
-            
+             
         </nav>
-        <div className='navbar2'></div>
+        
         <Outlet/>
     </>
     )

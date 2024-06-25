@@ -17,7 +17,7 @@ const blogStructure ={
         author:{ personal_info:{ }}
 }
 
-export const Editorcontext = createContext({});
+export const Editorcontext = createContext({ });
 
 
 const Editor =()=>{
@@ -59,7 +59,7 @@ const Editor =()=>{
             {
                 access_token === null ? <Navigate to="/signin" />
                      :
-                     loading ? <Loader/> : 
+                loading ? <Loader/> : 
                 editorState == 'editor' ? <BlogEditor/> : <PublishForm/>
            }
         </Editorcontext.Provider>
