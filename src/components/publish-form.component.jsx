@@ -81,7 +81,7 @@ const PublishForm = () =>{
             }
 
             if(!tags.length){
-                return toast.error("Include at least one tag to help rank your blog")
+                return toast.error("Include at least one tag to help rank your blog and search your blog")
             }
 
             let loadingToast = toast.loading("Publishing...");

@@ -65,7 +65,7 @@ const ManageBlogs = () =>{
                 getBlogs({ page: 1, draft: true })
             }
         }
-   },[access_token, blogs, drafts,query])
+   },[access_token, blogs, drafts, query])
 
    const handleSearch=(e)=>{
         let searchQuery = e.target.value;
@@ -90,15 +90,15 @@ const ManageBlogs = () =>{
         <>
                 <h1 className="max-md:hidden">Manage Blogs</h1>
                 <Toaster/>
-                <div className="relative max-md:mt-5 md: mt-8 mb-10">
+                <div className="relative max-md:mt-5 md:mt-8 mb-10">
                     <input
                         type="search"
-                        className="w-full bg-grey p-4 pl-12 pr-6 rounded-full  placeholder:text-dark-grey"
-                        placeholder="Search blogs"
+                        className="w-full bg-grey p-4 pl-12 pr-6 rounded-full placeholder:text-dark-grey"
+                        placeholder="Search Blogs"
                         onChange={handleChange}
                         onKeyDown={handleSearch}
                     />
-                      <i className="bi bi-search absolute right-[10%] md: pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey"></i>
+                      <i className="bi bi-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey"></i>
                 </div>
 
                 <InPageNavigation routes={["Published Blogs", "Drafts"]} defaultActiveIndex={activeTab != "draft" ? 0 : 1}>
@@ -111,7 +111,7 @@ const ManageBlogs = () =>{
                                 blogs.results.map((blog, i) => {
                                     return <AnimationWrapper key={i} transition={{delay: i * 0.04}}>
 
-                                        <ManagePublishedBlogCard blog={{ ...blog, index: i , setStateFunc: setBlogs }}/>
+                                        <ManagePublishedBlogCard blog={{ ...blog, index: i + 1  , setStateFunc: setBlogs }}/>
 
                                     </AnimationWrapper>
                                 })
@@ -134,7 +134,7 @@ const ManageBlogs = () =>{
                                     return <AnimationWrapper key={i} transition={{delay: i * 0.04}}>
 
                                         {/* <ManagePublishedBlogCard blog={blog}/> */}
-                                        <ManageDraftBlogPost blog={{ ...blog, index: i + 1, setStateFunc: setDrafts }} />
+                                        <ManageDraftBlogPost blog={{ ...blog, index: i , setStateFunc: setDrafts }} />
 
                                     </AnimationWrapper>
                                 })

@@ -1,9 +1,9 @@
 
 
 import {Link, useNavigate, useParams} from "react-router-dom"
-import logo from "../assets/utlimate one.jpg"
+import logo from "../assets/reactkdlogo.jpg"
 import AnimationWrapper from "../common/page-Animation"
-import defaultBanner from '../assets/BlogBanner.png'
+import defaultBanner from '../assets/reactbanner.jpg.jpg'
 import { uploadImage } from "../common/aws"
 import { useContext, useEffect} from "react"
 import {Toaster, toast} from 'react-hot-toast'
@@ -161,7 +161,7 @@ const BlogEditor = () =>{
     return(
         <>
                 <nav className="navbar">
-                   <Link to='/' className='flex-none w-10'>
+                   <Link to='/' className='flex-none w-20'>
                      <img src={logo} alt="Brand Logo" className='w-full'/>
                    </Link>
 

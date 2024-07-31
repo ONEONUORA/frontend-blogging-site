@@ -27,7 +27,7 @@ const ChangePassword = ()=>{
         let{ currentPassword, newPassword}  = formData;
 
         if(!currentPassword.length || !newPassword.length){
-            return toast.error ("Fill all the inputs")
+            return toast.error ("Fill all fields")
         }
 
         if(!passwordRegex.test(currentPassword) || !passwordRegex.test(newPassword)){
@@ -38,7 +38,7 @@ const ChangePassword = ()=>{
 
         let loadingToast = toast.loading("Updating...");
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/change-password", formData, {
+        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/v1/user/change-password", formData, {
             headers:{
                 'Authorization': `Bearer ${access_token}`
             }
@@ -47,13 +47,20 @@ const ChangePassword = ()=>{
         .then(() => {
             toast.dismiss(loadingToast);
             e.target.removeAttribute("disabled");
+            ChangePasswordForm.current.reset(); // Clear the input fields
             return toast.success("Password Updated")
-
+        
         })
         .catch(({ response }) => {
             toast.dismiss(loadingToast);
             e.target.removeAttribute("disabled");
-            return toast.error(response.data.error)
+            // return toast.error(response.data.error)
+
+            if (response.data.error === "Incorrect current password") {
+                return toast.error("Incorrect current password");
+            }
+
+            return toast.error(response.data.error || "An error occurred");
         })
 
     }
@@ -70,7 +77,7 @@ const ChangePassword = ()=>{
                            placeholder="Current Password" icon="bi-unlock"/>
 
                         <InputBox name="newPassword" type="password" className="profile-edit-input" 
-                           placeholder="New Password" icon="bi-unlock"/>
+                           placeholder="New Password" icon="bi-lock"/>
 
                         <button onClick={handleSubmit} className="btn-dark px-10" type="submit">Change Password</button>
                     </div>

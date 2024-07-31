@@ -25,7 +25,6 @@ const Editor =()=>{
         let { blog_id} = useParams();
 
         const [blog, setBlog ] = useState(blogStructure)
-
         const [ editorState, setEditorState] = useState("editor")
         const [ textEditor, setTextEditor] = useState({isReady: false})
         const [loading, setLoading] = useState(true);

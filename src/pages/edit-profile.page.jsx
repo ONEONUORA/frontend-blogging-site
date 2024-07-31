@@ -15,8 +15,8 @@ import { storeInSession } from "../common/session";
 const EditProfile = () =>{
         let bioLimit = 150
         let profileImgElement = useRef();
-        let editProfileForm ; useRef();
-        let {userAuth, userAuth: { access_token}, setUserAuth} = useContext(UserContext)
+        let editProfileForm = useRef();
+        let {userAuth, userAuth: {access_token}, setUserAuth} = useContext(UserContext)
         const [profile, setProfile ] = useState(profileDataStructure)
         const [loading, setLoading ]  = useState(true);
         const [charactersLeft, setCharactersLeft] = useState(bioLimit)
@@ -67,6 +67,7 @@ const EditProfile = () =>{
                                 }
                             })
                             .then(({data}) =>{
+
                                 let newUserAuth = { ...userAuth, profile_img: data.profile_img}
 
 
@@ -118,7 +119,7 @@ const EditProfile = () =>{
                 username, bio,
                 social_links: { youtube, facebook, twitter, github, instagram, website }},{
                     headers:{
-                        "Authorization": `Bearer $(access_token)`
+                        "Authorization": `Bearer ${access_token}`
                     }
               
             })
@@ -170,9 +171,9 @@ const EditProfile = () =>{
                                 </div>
 
                                 <div className="w-full">
-                                            <div className="grid grid-cols md:grid-cols-2 md:gap-5">
-                                                <div>
-                                                    <InputBox name="fullname" type="text" value={fullname} placeholder="Full Name"
+                                            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
+                                                <div >
+                                                    <InputBox  name="fullname" type="text" value={fullname} placeholder="Full Name"
                                                         disable={true} icon="bi-person"
                                                     />
                                                 </div>
@@ -188,8 +189,9 @@ const EditProfile = () =>{
                                                 icon='bi-at' />
 
                                                 <p className="text-dark-grey -mt-3">Username that will be seen by all users</p>
+
                                                 <textarea name="bio" maxLength={bioLimit} defaultValue={bio} className="input-box h-64 lg:h-40 resize-none leading-7 mt-5 pl-5"
-                                                                placeholder="Bio" onChange={handleCharacterChange}
+                                                placeholder="Bio" onChange={handleCharacterChange}
                                                 ></textarea>
 
                                                 <p className="mt-1  text-dark-grey"> {charactersLeft} Characters left</p>
@@ -205,7 +207,7 @@ const EditProfile = () =>{
 
                                                     }
                                                 </div>
-                                                <button onClick={handleSubmit} className="btn-dark w-auto px-10" type="submit">Update</button>
+                                                <button onClick={handleSubmit} className="btn-dark w-auto px-10" type="submit">Update Profile</button>
                                 </div>
 
                             </div>

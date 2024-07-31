@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 
 
@@ -5,7 +6,7 @@ const Img = ({ url, caption, }) =>{
     return(
         <div>
             <img src={url}/>
-            { caption.length ? <p className="w-100 text-centermy-3 md: mb-12 text-base text-dark">{caption}</p> : " " }
+            { caption.length ? <p className="w-full text-center my-3 md: mb-12 text-base text-dark-grey">{caption}</p> : " " }
         </div>
     )
 
@@ -22,7 +23,7 @@ const Quote = ({ quote, caption }) =>{
 
  const List = ({style, items})=>{
     return(
-        <ol className={`pl-5 ${ style == "ordered" ? "list-decimal" : "list-disc "}`}>
+        <ol className={`pl-5 ${ style == "ordered" ? " list-decimal" : " list-disc "}`}>
             {
                 items.map((listItem, i) =>{
                     return <li key={i} className="my-4" dangerouslySetInnerHTML={{ __html:listItem }}></li>

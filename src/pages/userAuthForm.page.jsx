@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import AnimationWrapper from "../common/page-Animation";
 import candle from "../assets/candle.png";
@@ -35,7 +36,7 @@ const UserAuthForm = ({ type }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let serverRoute = type == "sign-in" ? "/signin" : "/signup";
+    let serverRoute = type == "sign-in" ? "/api/v1/user/signin" : "/api/v1/user/signup";
 
     let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // regex for email***********************
     let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/; // regex for password***************************

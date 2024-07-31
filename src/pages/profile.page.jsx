@@ -15,8 +15,8 @@ import PageNotFound from "./404.page";
 
 export const profileDataStructure ={
     personal_info:{
-        fullname:'',
-        username: '',
+        fullname: "",
+        username: "",
         profile_img: "",
         bio: "",
     },
@@ -25,7 +25,7 @@ export const profileDataStructure ={
         total_blogs:0,
     },
     social_links:{ },
-    joinedAt: '',
+    joinedAt: " ",
 
   
 }
@@ -66,10 +66,7 @@ const ProfilePage = ()=>{
         })
     }
 
-    // useEffect(() =>{
-    //     fetchUserProfile()
-    // }[])
-
+  
     const getBlogs=({page = 1, user_id})=>{
 
         user_id = user_id == undefined  ? blogs.user_id : user_id;
@@ -93,13 +90,22 @@ const ProfilePage = ()=>{
         })
     }
 
+  useEffect(() =>{
+    if(profileId != profileLoaded){
+        setBlogs(null)
+    }
+    if(blogs == null){
+        resetStates();
+        fetchUserProfile()
+    }
+       
+    },[profileId, blogs])
 
 
     const resetStates =()=>{
         setProfile(profileDataStructure);
         setLoading(true);
         setprofileLoaded(" ");
-
     }
 
     return(
@@ -108,21 +114,22 @@ const ProfilePage = ()=>{
                 {
                     loading ? <Loader/> :
                     profile_username.length ?
-                   <section className="section1 h-cover infoimg">
-                        <div className="infoimg2 md:w-[50%] md:pl-8 md:border-l border-grey md:sticky md:top-[100px] md:py-10">
+                   <section className="h-cover md:flex flex-row-reverse items-start gap-5 min-[1100px]:gap-12">
+                        <div className="flex flex-col max-md:items-center gap-5 min-w-[250px] md:w-[50%] md:pl-8 md:border-l border-grey md:sticky md:top-[100px] md:py-10">
                             <img src={ profile_img} className="w-48 h-48 bg-grey rounded-full md:w-32 md:h-32"/>
 
-                            <h6 className="text-2xl font-medium">@{profile_username}</h6>
-                            <p className="text-xl capitalize h-6">{fullname}</p>
-                            <p>{total_posts.toLocaleString()}Blogs, - {total_reads.toLocaleString()}  Reads</p>
+                            <h1 className="text-2xl font-medium">@{profile_username}</h1>
+                            <p className="text-xl capitalize h-6 ">{fullname}</p>
+                            
+                            <p>{total_posts.toLocaleString()} Blogs - {total_reads.toLocaleString()} Reads</p>
 
-                            <div className="d-flex gap-2 mt-2">
-                            {
+                            <div className="flex gap-4 mt-2">
+                               {
                                 profileId == username ?
 
-                                <Link to="/settings/edit-profile" className="btn-light rounded-md">Edit Profile</Link>
+                                  <Link to="/settings/edit-profile" className="btn-light rounded-md">Edit Profile</Link>
                                     : " "
-                            }
+                              }
                                 
                             </div>
 
@@ -130,7 +137,7 @@ const ProfilePage = ()=>{
 
                         </div>
 
-                        <div className="max-md: mt-3 w-100">
+                        <div className="max-md:mt-12 w-full">
 
                             <InPageNavigation
                                 routes={["Blogs Published" , "About"]}
@@ -143,7 +150,7 @@ const ProfilePage = ()=>{
                                         blogs.results.length ? 
                                         blogs.results.map((blog, i) => {
                                             return (
-                                                <AnimationWrapper  transition={{ duration: 1, delay: i * .1}} key={i}>
+                                                <AnimationWrapper  transition={{ duration: 1, delay: i * 0.1}} key={i}>
                                                        <BlogPostCard content={blog} author={blog.author.personal_info}/>
                                                 </AnimationWrapper>
                                             );
@@ -154,7 +161,7 @@ const ProfilePage = ()=>{
                                     <LoadMoreDataBtn state={blogs}  fetchDataFun={getBlogs}/>
                         </>
                             
-                            <AboutUser  bio={bio} social_links={social_links} joinedAt={joinedAt}/>
+                            <AboutUser bio={bio} social_links={social_links} joinedAt={joinedAt}/>
                      
                             </InPageNavigation>
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Children, useContext, useState } from "react";
 import { getDay } from "../common/date";
 import {UserContext} from "../App"
@@ -43,6 +44,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
                 }
             }
         }
+        
 
         if(isDelete){
             let parentIndex = getParentIndex();
@@ -70,12 +72,12 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
 
             hideReplies();
 
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", {_id:commentsArr[currentIndex]._id , skip})
+            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", {_id: commentsArr[currentIndex]._id , skip})
             .then(({ data : { replies }}) =>{
 
                 commentsArr[currentIndex].isReplyLoaded = true;
                  
-                 for(  let i = 0; i < replies.length;  i++){
+                 for( let i = 0; i < replies.length;  i++){
 
                     replies[i].childrenLevel = commentsArr[currentIndex].childrenLevel + 1;
                     commentsArr.splice(currentIndex + 1  + i + skip, 0, replies[i])
@@ -119,7 +121,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
 
     const handleReplyClick =()=>{
         if(!access_token){
-            return toast.error("Login first to leave a reply")
+            return toast.error("Login first to reply")
         }
 
         setReplying(preVal => !preVal);
@@ -131,7 +133,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
         let parentIndex = getParentIndex();
 
         let button = <button  onClick={() => loadReplies({skip: index - parentIndex, currentIndex: parentIndex})} 
-                         className="text-dark-grey p-2 px-3 hover;bg-grey/30 rounded-md flex items-center gap-2">Load More Replies
+                         className="text-dark-grey p-2 px-3 hover:bg-grey/30 rounded-md flex items-center gap-2">Load More Replies
                     </button>
 
         if(commentsArr[index + 1]){
@@ -152,7 +154,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
 }
     return(
         <>
-            <div className="w-full " style={{paddingLeft: `${leftVal * 10}px`}}>
+            <div className="w-full" style={{paddingLeft: `${leftVal * 10}px`}}>
                 <div className="my-5 p-6 rounded-md border border-grey">
                     <div className="flex gap-3 items-center mb-8">
                         <img src={profile_img} className="w-6 h-6 rounded-full"/>
@@ -167,7 +169,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
                     <div className="flex gap-5 items-center mt-5">
                             {
                                 commentData.isReplyLoaded ? 
-                                <button className="text-dark-grey p-2 px-3 hover: bg-grey/30 rounded-md flex items-center gap-2"
+                                <button className="text-dark-grey p-2 px-3 hover:bg-grey/30 rounded-md flex items-center gap-2"
                                  onClick={hideReplies}
                                 >
                                  <i className="bi bi-chat-dots"></i>{Children.length} Hide Reply
@@ -186,7 +188,7 @@ const CommentCard = ({ index, leftVal, commentData }) =>{
                         {
                             username == commented_by_username || username == blog_author  ? 
 
-                            <button className="p-2 px-3 rounded-md border border-grey ml-auto hover: bg-red/30 hover: text-red flex items-center"
+                            <button className=" p-2 px-3 rounded-md border border-grey ml-auto hover:bg-red/30 hover:text-red flex items-center"
                                     onClick={deleteComment}
                             >
                                <i className="bi bi-trash pointer-events-none"></i>

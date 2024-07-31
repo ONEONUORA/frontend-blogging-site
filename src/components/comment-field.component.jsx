@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useContext, useState } from "react";
 import { UserContext } from "../App";
 import toast, { Toaster } from "react-hot-toast";
@@ -17,7 +18,7 @@ const CommentField =({action, index = undefined, replyingTo = undefined, setRepl
     const handleComment =()=>{
 
         if(!access_token){
-            return toast.error("Login first to leave a comment")
+            return toast.error("Login to leave a comment!!!")
         }
 
         if(!comment.length){
@@ -29,7 +30,8 @@ const CommentField =({action, index = undefined, replyingTo = undefined, setRepl
         {
 
             headers:{
-                "Authorization": `Bearer ${access_token}`
+                
+                'Authorization': `Bearer ${access_token}`
             }
         })
         .then(({ data }) => {

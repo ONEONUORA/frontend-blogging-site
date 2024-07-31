@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import page from '../assets/404.png';
-import brandlogo from "../assets/utlimate one.jpg"
+import page from '../assets/react404.jpeg';
+import brandlogo from "../assets/reactkdlogo.jpg"
 
 
 const PageNotFound = () =>{
@@ -9,19 +9,22 @@ const PageNotFound = () =>{
         <>
           
 
-                <div className='row justify-content-center mt-3' >
-                    <div className='col-12  text-center page3' >
-                      <img src={page} className='page404'/>
-                          <h4 style={{fontWeight:"bold", marginTop:'2rem'}}>Page Not Found</h4>
-                           <p>The page you are searching for does not exist<br/> 
-                            <Link to='/' style={{color:'black', fontWeight:'bold'}}>Back to home</Link>
+                <section className='h-cover realtive p-10 flex flex-col items-center gap-20 text-center' >
+                   
+                      <img src={page} className='select-none border-2 border-grey  w-72 aspect-square object-cover rounded'/>
+                          <h1 className='text-4xl font-gelasio leading-7'>Page Not Found</h1>
+                           <p className='text-dark-grey text-xl leading-7 -mt-8'>The page you are searching for does not exist<br/> 
+                            <Link to='/' className='text-black underline'>Back to home</Link>
                            </p>
 
-                           <img src={brandlogo}  alt='Brand Logo' className='img2'/>
-                           <p style={{ padding:"2rem"}}>Dive into a World of Stories: Explore Millions from Across the Globe!</p>
-                           <h6 style={{color:'red', marginBottom:'2rem'}}>Chidex Blogging Space</h6>
-                    </div>
-                </div>
+                        <div className='mt-auto'>
+                           <img src={brandlogo}  alt='Brand Logo' className='h-20  object-contain block mx-auto select-none'/>
+                           <p className='mt-5 text-dark-grey'>Dive into a World of Stories: Explore Millions from Across the Globe!</p>
+                           <h6 className='mt-3 font-bold'>React Js Community Blogging Space</h6>
+                        </div>
+                          
+            
+                </section>
                 
       
         </>

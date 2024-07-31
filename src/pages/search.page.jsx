@@ -42,7 +42,7 @@ const SearchPage = () =>{
 
         const fetchUsers = () =>{
             axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-users" , { query })
-            .then(( {data: { users} } ) =>{
+            .then(( { data: { users} } ) =>{
                 setUsers(users);
             })
             // .catch((err) => {
@@ -60,7 +60,7 @@ const SearchPage = () =>{
             fetchUsers();
         }, [query])
 
-        const resetState =() =>{
+        const resetState = () =>{
             setBlog(null);
             setUsers(null);
 
@@ -100,12 +100,12 @@ const SearchPage = () =>{
                                         blogs.results.length ? 
                                         blogs.results.map((blog, i) => {
                                             return (
-                                                <AnimationWrapper  transition={{ duration: 1, delay: i * .1}} key={i}>
+                                                <AnimationWrapper  transition={{ duration: 1, delay: i * 0.1}} key={i}>
                                                        <BlogPostCard content={blog} author={blog.author.personal_info}/>
                                                 </AnimationWrapper>
                                             );
                                         }) : 
-                                        <NoDataMessage message='No blogs has been published yet!'/>
+                                        <NoDataMessage message='No blog published yet!'/>
                                     )}
 
                                     <LoadMoreDataBtn state={blogs}  fetchDataFun={searchBlogs}/>

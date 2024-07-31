@@ -15,24 +15,22 @@ import LoadMoreDataBtn from "../components/load-more.component";
 const HomePage = () => {
   let [blogs, setBlog] = useState(null);
   let [trendingBlogs, setTrendingBlog] = useState(null);
+  let [pageState, setPageState] = useState("home");
   let categories = [
     "programming",
-    "holly wood",
     "life style",
-    "social media",
     "cooking",
     "technology",
-    "finance",
     "health care",
     "travel",
-    "bolly wood",
+    "events"
   ];
-  let [pageState, setPageState] = useState("home");
+
 
   const fetchLatestBlogs = ({ page = 1 }) => {
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", { page })
-      .then(async ({ data }) => {
+      .then( async ({ data }) => {
         // console.log(data.blogs);
 
         let formattedData = await filterPaginationData({
@@ -172,12 +170,15 @@ const HomePage = () => {
           {/* Filters and Trending blog section */}
 
           <div className="min-w-[40%] max-w-min border-l border-grey pl-8 pt-3 max-md:hidden lg:min-w-[400px]">
+
             <div className="flex flex-col gap-10">
+
               <div>
                 <h1 className="mb-8 text-xl font-medium">
-                  Explore & Discover stories from different blog posts
+                  Explore & Discover stories
                 </h1>
 
+            
                 <div className="flex flex-wrap gap-3">
                   {categories.map((category, i) => {
                     return (
@@ -219,6 +220,7 @@ const HomePage = () => {
                 )}
               </div>
             </div>
+
           </div>
         </section>
       </AnimationWrapper>

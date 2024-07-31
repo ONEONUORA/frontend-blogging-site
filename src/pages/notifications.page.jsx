@@ -10,11 +10,11 @@ import LoadMoreDataBtn from "../components/load-more.component";
 
 
 
-const NotificationS =()=>{
+const Notifications =()=>{
 
 
-        let { userAuth,userAuth : {access_token, new_notification_available}, setUserAuth} = useContext(UserContext)
-        const[filter, setFilter ] = useState("all");
+        let { userAuth, userAuth : {access_token, new_notification_available}, setUserAuth} = useContext(UserContext)
+        const [filter, setFilter ] = useState("all");
         const [notifications, setNotifications] = useState(null);
 
 
@@ -28,7 +28,8 @@ const NotificationS =()=>{
                     'Authorization': `Bearer ${access_token}`
                 }
             })
-            .then( async ({data : {NotificationS: data}}) =>{
+            .then( async ({data : {notifications: data}}) =>{
+
                     if(new_notification_available){
                             setUserAuth({...userAuth, new_notification_available: false})
                     }
@@ -59,7 +60,7 @@ const NotificationS =()=>{
 
 
 
-        const handleFilter =(e)=>{
+        const handleFilter = (e) =>{
             let btn = e.target;
             setFilter(btn.innerHTML);
             setNotifications(null);
@@ -71,7 +72,7 @@ const NotificationS =()=>{
             <div>
                 <h1 className="max-md:hidden">Recent Notifications</h1>
 
-                <div className="my-8 flex gap-6">
+                <div className="my-8 flex gap-2">
                     {
                         filters.map((filterName, i) =>{
                             return <button key={i} className={"py-2 " + (filter == filterName ? "btn-dark"  : "btn-light")}
@@ -88,7 +89,7 @@ const NotificationS =()=>{
                         {
                             notifications.results.length ? 
                                 notifications.results.map((notification , i) => {
-                                    return  <AnimationWrapper key={i} transition={{ delay: i * 0.08 }}>
+                                    return  <AnimationWrapper key={i} transition={{ delay: i*0.08 }}>
                                                <NotificationCard data={notification} index={i} 
                                                  notificationState={{ notifications, setNotifications  }}/>
                                             </AnimationWrapper>
@@ -109,4 +110,4 @@ const NotificationS =()=>{
 }
 
 
-export  default NotificationS;
+export  default Notifications;

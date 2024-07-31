@@ -18,7 +18,7 @@ export const filterPaginationData = async({ create_new_arr = false, state, data,
     }else{
       await axios.post(import.meta.env.VITE_SERVER_DOMAIN +  countRoute , data_to_send, headers)
       .then(({ data: {totalDocs} }) =>{
-        obj = {results: data, page: 1 , totalDocs}
+        obj = { results: data, page: 1 , totalDocs }
       })
       .catch( err => {
         console.log(err)
