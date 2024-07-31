@@ -6,3 +6,25 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+
+
+Technologies Used
+    @editorjs/code
+    @editorjs/editorjs
+    @editorjs/embed
+    @editorjs/header
+    @editorjs/image
+    @editorjs/inline-code
+    @editorjs/link
+    @editorjs/list
+    @editorjs/marker
+    @editorjs/quote
+    axios
+    firebase
+    framer-motion
+    react
+    react-dom
+    react-hot-toast
+    react-router-dom
+
